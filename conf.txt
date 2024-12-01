@@ -1,3 +1,2 @@
 .rs:rustc -o & %
 .cpp:g++ -o & %
-
