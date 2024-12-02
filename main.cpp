@@ -2,11 +2,13 @@
 #include <fstream>
 #include <cstring>
 #include <filesystem>
+#include <stdlib.h>
 
 namespace fs = std::filesystem;
 
 int main(int argc, char* argv[]) {
 	
+		std::string home = getenv("HOME");
 	std::string name;
 	if(argv[1] == nullptr) {
 	std::cout << "no\n";
@@ -20,7 +22,7 @@ int main(int argc, char* argv[]) {
 	
 	if (!strcmp(argv[1], "add")) {
 		try{
-		std::string from1 = "/home/duck/Documents/headmgr/";
+		std::string from1 = home+"/Documents/headmgr/";
 		fs::path from = from1+argv[2];
 		std::string to1 = ".headmgr/";
 		fs::path to = to1+argv[2];	
@@ -33,7 +35,7 @@ int main(int argc, char* argv[]) {
 			return 1;
 		}
 	}
-	std::fstream fileb("conf.txt");
+	std::fstream fileb(home+"/Documents/headmgr/conf.txt");
 	std::string filecdat = "";
 	name = argv[2];
 	std::fstream file(argv[3]);
