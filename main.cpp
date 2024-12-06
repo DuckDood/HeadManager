@@ -55,7 +55,7 @@ int main(int argc, char* argv[]) {
 	}
 	fileData.erase(fileData.length()-1);
 	filecdat.erase(filecdat.length()-1);
-	std::string fileTempStr = ".headmgr/qxertcas"+filePath.extension().string();
+	std::string fileTempStr = ".headmgr/"+filePath.string();
 
 	std::ofstream fileTemp(fileTempStr.c_str());
 	
