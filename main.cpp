@@ -37,11 +37,10 @@ int main(int argc, char* argv[]) {
 	}
 	std::fstream fileb(home+"/Documents/headmgr/conf.txt");
 	std::string filecdat = "";
-	name = argv[2];
-	std::fstream file(argv[3]);
-	fs::path filePath = argv[3];
 	if (!strcmp(argv[1] , "-o")) {
 	name=argv[2];	
+	std::fstream file(argv[3]);
+	fs::path filePath = argv[3];
 	std::string fileData = "";
 	char mychar;
 	while ( file ) {
@@ -74,6 +73,45 @@ int main(int argc, char* argv[]) {
 
 	
 	system(filecdat.c_str());
+	} else {
+
+	name="output";	
+	std::fstream file(argv[1]);
+	fs::path filePath = argv[1];
+	std::string fileData = "";
+	char mychar;
+	while ( file ) {
+		mychar = file.get();
+		fileData += mychar;
+	}
+
+	while ( fileb ) {
+		mychar = fileb.get();
+		filecdat += mychar;
+	}
+	fileData.erase(fileData.length()-1);
+	filecdat.erase(filecdat.length()-1);
+	std::string fileTempStr = ".headmgr/"+filePath.string();
+
+	std::ofstream fileTemp(fileTempStr.c_str());
+	
+
+	fileTemp << fileData;
+	
+	fileTemp.close();
+	filecdat.erase(0,filecdat.find(filePath.extension().string())+filePath.extension().string().length()+1);
+	filecdat.erase(filecdat.find("\n"), filecdat.length());	
+	int insname = filecdat.find('&');
+	filecdat.erase(insname,1);
+	filecdat.insert(insname, name);
+	insname = filecdat.find('%');
+	filecdat.erase(insname,1);
+	filecdat.insert(insname, fileTempStr);
+
+	
+	system(filecdat.c_str());
+
+
 	}
 	return 0;
 }
